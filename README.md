@@ -1,7 +1,7 @@
 # autoemojis-legacy
 This parser was used in the legacy `v3` series of Comio, until it was finally deprecated in the `v4` series due to Discord's terms of use violation.
 
-## Working
+## Terminology
 
 ```js
 let substringArray = get_substrings_between(message.content, ":", ":");
