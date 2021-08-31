@@ -40,4 +40,4 @@ Message content is breaked into chunks having custom emojis or unicode emojis (:
     })
 };
 ```
-All the webhooks of the message's channel are fetched. If a webhook named as `Webhook Emojis` is found, it will be used, else it creates a new one with client's avatar. After the webhook is fetched, its name and avatar is replaced by the message author's name and avatar to replicate the author. Finally the original message is deleted and a new webhook message is sent in the message's channel having the custom emojis.
+A webhook named as `Webhook Emojis` is resolved, then its name and avatar is replaced by the message author's name and avatar to replicate the author. Finally the original message is deleted and a new webhook message is sent in the message's channel having the custom emojis.
