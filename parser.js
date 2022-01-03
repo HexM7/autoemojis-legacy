@@ -1,37 +1,48 @@
-module.exports.parseMessage=async function(client, message){
-if(!message.content) return;
-let substringArray = get_substrings_between(message.content, ":", ":");
-    let msg = message.content;
-    if(!substringArray.length) return;
-    substringArray.forEach(m => {
-        let emoji = client.emojis.cache.find(x => x.name === m);
-        var replace = `:${m}:`;
-        var rexreplace = new RegExp(replace, 'g');
-        const replaceInteger = msg.replace(/[0-9]/g, '');
-        const emojiInteger = replace.replace(/[0-9]/g, '');
-        if (replaceInteger.includes(`<${emojiInteger}>`) || replaceInteger.includes(`<a${emojiInteger}>`)) return;
-        if(emoji && !msg.split(" ").find(x => x === emoji.toString()) && !msg.includes(`<${replace}${emoji.id}>`) && !msg.includes(`<a${replace}${emoji.id}>`)) {
-          msg = msg.replace(rexreplace, emoji.toString());
-        };
-    })
-    if(msg === message.content) return;
-    let webhook = await message.channel.fetchWebhooks();
-    webhook = webhook.find(x => x.name === "Webhook Emojis");
-    if(!webhook) {
-        webhook = await message.channel.createWebhook(`Webhook Emojis`, {
-            avatar: client.user.displayAvatarURL({dynamic: true})
-        });
-    }
-    await webhook.edit({
-        name: message.member.nickname ? message.member.nickname : message.author.username,
-        avatar: message.author.displayAvatarURL({dynamic: true})
-    })
-    message.delete().catch(console.error)
-    webhook.send({content:msg}).catch(console.error);
-    await webhook.edit({
-        name: `Webhook Emojis`,
-        avatar: client.user.displayAvatarURL({dynamic:true})
-    })
+module.exports.parseMessage = async function(client, message) {
+
+  if (!message.content) return;
+  let substringArray = get_substrings_between(message.content, ":", ":");
+  let msg = message.content;
+  if (!substringArray.length) return;
+ 
+  substringArray.forEach(m => {
+    let emoji = client.emojis.cache.find(x => x.name === m);
+    var replace = `:${m}:`;
+    var regReplace = new RegExp(replace, 'g');
+    const replaceInteger = msg.replace(/[0-9]/g, '');
+    const emojiInteger = replace.replace(/[0-9]/g, '');
+    if (replaceInteger.includes(`<${emojiInteger}>`) || replaceInteger.includes(`<a${emojiInteger}>`)) return;
+    if (emoji && !msg.split(" ").find(x => x === emoji.toString()) && !msg.includes(`<${replace}${emoji.id}>`) && !msg.includes(`<a${replace}${emoji.id}>`)) {
+      msg = msg.replace(regReplace, emoji.toString());
+    };
+  })
+   
+  if (msg === message.content) return;
+  let webhook = await message.channel.fetchWebhooks();
+  webhook = webhook.find(x => x.name === "Webhook Emojis");
+    
+  if (!webhook) {
+    webhook = await message.channel.createWebhook(`Webhook Emojis`, {
+      avatar: client.user.displayAvatarURL({ dynamic: true })
+    });
+  }
+    
+  await webhook.edit({
+    name: message.member.nickname ? message.member.nickname : message.author.username,
+    avatar: message.author.displayAvatarURL({ dynamic: true })
+  })
+    
+  message.delete()
+    .catch(console.error);
+ 
+  webhook.send({ content: msg })
+    .catch(console.error);
+ 
+  await webhook.edit({
+    name: `Webhook Emojis`,
+    avatar: client.user.displayAvatarURL({ dynamic:true })
+  })
+    
 };
 
 function get_substrings_between(str, startDelimiter, endDelimiter) {
