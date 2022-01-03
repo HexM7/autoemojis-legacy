@@ -40,7 +40,7 @@ module.exports.parseMessage = async function(client, message) {
  
   await webhook.edit({
     name: `Webhook Emojis`,
-    avatar: client.user.displayAvatarURL({ dynamic:true })
+    avatar: client.user.displayAvatarURL({ dynamic: true })
   });
     
 };
