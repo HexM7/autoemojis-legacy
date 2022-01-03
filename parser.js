@@ -25,12 +25,12 @@ module.exports.parseMessage = async function(client, message) {
     webhook = await message.channel.createWebhook(`Webhook Emojis`, {
       avatar: client.user.displayAvatarURL({ dynamic: true })
     });
-  }
+  };
     
   await webhook.edit({
     name: message.member.nickname ? message.member.nickname : message.author.username,
     avatar: message.author.displayAvatarURL({ dynamic: true })
-  })
+  });
     
   message.delete()
     .catch(console.error);
@@ -41,7 +41,7 @@ module.exports.parseMessage = async function(client, message) {
   await webhook.edit({
     name: `Webhook Emojis`,
     avatar: client.user.displayAvatarURL({ dynamic:true })
-  })
+  });
     
 };
 
@@ -55,12 +55,12 @@ function get_substrings_between(str, startDelimiter, endDelimiter) {
     contentEnd = strpos(str, endDelimiter, contentStart);
     if (false === contentEnd) {
       break;
-    }
+    };
     contents.push(str.substr(contentStart, contentEnd - contentStart));
     startFrom = contentEnd + endDelimiterLength;
-  }
+  };
   return contents;
-}
+};
 
 function strpos(haystack, needle, offset) {
   var i = (haystack + '').indexOf(needle, (offset || 0));
