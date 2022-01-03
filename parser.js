@@ -46,23 +46,23 @@ module.exports.parseMessage = async function(client, message) {
 };
 
 function get_substrings_between(str, startDelimiter, endDelimiter) {
-    var contents = [];
-    var startDelimiterLength = startDelimiter.length;
-    var endDelimiterLength = endDelimiter.length;
-    var startFrom = contentStart = contentEnd = 0;
-    while (false !== (contentStart = strpos(str, startDelimiter, startFrom))) {
-      contentStart += startDelimiterLength;
-      contentEnd = strpos(str, endDelimiter, contentStart);
-      if (false === contentEnd) {
-        break;
-      }
-      contents.push(str.substr(contentStart, contentEnd - contentStart));
-      startFrom = contentEnd + endDelimiterLength;
+  var contents = [];
+  var startDelimiterLength = startDelimiter.length;
+  var endDelimiterLength = endDelimiter.length;
+  var startFrom = contentStart = contentEnd = 0;
+  while (false !== (contentStart = strpos(str, startDelimiter, startFrom))) {
+    contentStart += startDelimiterLength;
+    contentEnd = strpos(str, endDelimiter, contentStart);
+    if (false === contentEnd) {
+      break;
     }
-    return contents;
+    contents.push(str.substr(contentStart, contentEnd - contentStart));
+    startFrom = contentEnd + endDelimiterLength;
   }
+  return contents;
+}
 
-  function strpos(haystack, needle, offset) {
-    var i = (haystack + '').indexOf(needle, (offset || 0));
-    return i === -1 ? false : i;
-  };
+function strpos(haystack, needle, offset) {
+  var i = (haystack + '').indexOf(needle, (offset || 0));
+  return i === -1 ? false : i;
+};
